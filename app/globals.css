@@ -4,7 +4,31 @@
 
 @custom-variant dark (&:is(.dark *));
 
+/*
+ * Invoice App Design System
+ * -------------------------
+ * Extracted from Figma: Invoice App - Feature Designs
+ *
+ * Color palette (Figma variables):
+ *   01: #7C5DFA  Primary purple
+ *   02: #9277FF  Primary purple hover
+ *   03: #1E2139  Dark navy
+ *   04: #252945  Dark navy lighter
+ *   05: #DFE3FA  Light lavender border
+ *   06: #888EB0  Muted text
+ *   07: #7E88C3  Muted blue text
+ *   08: #0C0E16  Near-black
+ *   10: #FF9797  Destructive hover
+ *   11: #F8F8FB  Light background
+ *   12: #141625  Dark background
+ *       #EC5757  Destructive red
+ *
+ * Typography: League Spartan (Bold 700, Medium 500)
+ */
+
 @theme inline {
+  --font-sans: "League Spartan", ui-sans-serif, system-ui, sans-serif;
+
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
@@ -27,6 +51,7 @@
   --color-accent: var(--accent);
   --color-accent-foreground: var(--accent-foreground);
   --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
@@ -43,75 +68,138 @@
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
+
+  /* Invoice App: expose Figma palette as direct utility colors */
+  --color-invoice-purple: hsl(252 94% 67%);
+  --color-invoice-purple-light: hsl(252 100% 73%);
+  --color-invoice-navy: hsl(233 31% 17%);
+  --color-invoice-navy-light: hsl(233 30% 21%);
+  --color-invoice-lavender: hsl(231 73% 93%);
+  --color-invoice-muted: hsl(231 20% 61%);
+  --color-invoice-muted-blue: hsl(231 37% 63%);
+  --color-invoice-black: hsl(228 29% 7%);
+  --color-invoice-red: hsl(0 80% 63%);
+  --color-invoice-red-light: hsl(0 100% 80%);
+  --color-invoice-bg-light: hsl(240 27% 98%);
+  --color-invoice-bg-dark: hsl(233 30% 11%);
 }
 
 :root {
-  --radius: 0.625rem;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
-  --chart-1: oklch(0.646 0.222 41.116);
-  --chart-2: oklch(0.6 0.118 184.704);
-  --chart-3: oklch(0.398 0.07 227.392);
-  --chart-4: oklch(0.828 0.189 84.429);
-  --chart-5: oklch(0.769 0.188 70.08);
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.205 0 0);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
+  --radius: 0.5rem;
+
+  /* Figma light theme: #F8F8FB background, #0C0E16 foreground */
+  --background: hsl(240 27% 98%);
+  --foreground: hsl(228 29% 7%);
+
+  /* Card: white surface on light background */
+  --card: hsl(0 0% 100%);
+  --card-foreground: hsl(228 29% 7%);
+
+  /* Popover: same as card in light mode */
+  --popover: hsl(0 0% 100%);
+  --popover-foreground: hsl(228 29% 7%);
+
+  /* Primary: #7C5DFA purple */
+  --primary: hsl(252 94% 67%);
+  --primary-foreground: hsl(0 0% 100%);
+
+  /* Secondary: #DFE3FA light lavender */
+  --secondary: hsl(231 73% 93%);
+  --secondary-foreground: hsl(233 31% 17%);
+
+  /* Muted: light background tones */
+  --muted: hsl(240 27% 98%);
+  --muted-foreground: hsl(231 20% 61%);
+
+  /* Accent: #9277FF purple hover shade */
+  --accent: hsl(252 100% 73%);
+  --accent-foreground: hsl(0 0% 100%);
+
+  /* Destructive: #EC5757 red */
+  --destructive: hsl(0 80% 63%);
+  --destructive-foreground: hsl(0 0% 100%);
+
+  /* Borders & inputs: #DFE3FA lavender */
+  --border: hsl(231 73% 93%);
+  --input: hsl(231 73% 93%);
+
+  /* Focus ring: primary purple */
+  --ring: hsl(252 94% 67%);
+
+  /* Chart colors derived from palette */
+  --chart-1: hsl(252 94% 67%);
+  --chart-2: hsl(252 100% 73%);
+  --chart-3: hsl(231 37% 63%);
+  --chart-4: hsl(0 80% 63%);
+  --chart-5: hsl(231 20% 61%);
+
+  /* Sidebar: dark navy (#1E2139) */
+  --sidebar: hsl(233 31% 17%);
+  --sidebar-foreground: hsl(0 0% 100%);
+  --sidebar-primary: hsl(252 94% 67%);
+  --sidebar-primary-foreground: hsl(0 0% 100%);
+  --sidebar-accent: hsl(233 30% 21%);
+  --sidebar-accent-foreground: hsl(0 0% 100%);
+  --sidebar-border: hsl(233 30% 21%);
+  --sidebar-ring: hsl(252 94% 67%);
 }
 
 .dark {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.205 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.205 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.922 0 0);
-  --primary-foreground: oklch(0.205 0 0);
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.269 0 0);
-  --accent-foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.556 0 0);
-  --chart-1: oklch(0.488 0.243 264.376);
-  --chart-2: oklch(0.696 0.17 162.48);
-  --chart-3: oklch(0.769 0.188 70.08);
-  --chart-4: oklch(0.627 0.265 303.9);
-  --chart-5: oklch(0.645 0.246 16.439);
-  --sidebar: oklch(0.205 0 0);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.269 0 0);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.556 0 0);
+  /* Figma dark theme: #141625 background */
+  --background: hsl(233 30% 11%);
+  --foreground: hsl(0 0% 100%);
+
+  /* Card: #1E2139 dark navy */
+  --card: hsl(233 31% 17%);
+  --card-foreground: hsl(0 0% 100%);
+
+  /* Popover: same as card in dark mode */
+  --popover: hsl(233 31% 17%);
+  --popover-foreground: hsl(0 0% 100%);
+
+  /* Primary: same purple across themes */
+  --primary: hsl(252 94% 67%);
+  --primary-foreground: hsl(0 0% 100%);
+
+  /* Secondary: #252945 dark navy lighter */
+  --secondary: hsl(233 30% 21%);
+  --secondary-foreground: hsl(231 73% 93%);
+
+  /* Muted: dark surface */
+  --muted: hsl(233 30% 21%);
+  --muted-foreground: hsl(231 20% 61%);
+
+  /* Accent: same purple hover */
+  --accent: hsl(252 100% 73%);
+  --accent-foreground: hsl(0 0% 100%);
+
+  /* Destructive: #FF9797 lighter red for dark mode */
+  --destructive: hsl(0 100% 80%);
+  --destructive-foreground: hsl(233 30% 11%);
+
+  /* Borders & inputs: #252945 */
+  --border: hsl(233 30% 21%);
+  --input: hsl(233 30% 21%);
+
+  /* Focus ring: primary purple */
+  --ring: hsl(252 94% 67%);
+
+  /* Chart colors for dark mode */
+  --chart-1: hsl(252 100% 73%);
+  --chart-2: hsl(252 94% 67%);
+  --chart-3: hsl(231 37% 63%);
+  --chart-4: hsl(0 100% 80%);
+  --chart-5: hsl(231 20% 61%);
+
+  /* Sidebar: darker shade in dark mode */
+  --sidebar: hsl(233 30% 11%);
+  --sidebar-foreground: hsl(0 0% 100%);
+  --sidebar-primary: hsl(252 94% 67%);
+  --sidebar-primary-foreground: hsl(0 0% 100%);
+  --sidebar-accent: hsl(233 31% 17%);
+  --sidebar-accent-foreground: hsl(0 0% 100%);
+  --sidebar-border: hsl(233 31% 17%);
+  --sidebar-ring: hsl(252 94% 67%);
 }
 
 @layer base {
@@ -119,6 +207,6 @@
     @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-sans antialiased;
   }
 }

@@ -1,5 +1,12 @@
 import type { Metadata } from "next";
+import { League_Spartan } from "next/font/google";
 import "./globals.css";
+
+const leagueSpartan = League_Spartan({
+  subsets: ["latin"],
+  variable: "--font-sans",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   title: "My App",
@@ -13,7 +20,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body className={leagueSpartan.variable}>{children}</body>
     </html>
   );
 }
