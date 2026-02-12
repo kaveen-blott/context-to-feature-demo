@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { League_Spartan } from "next/font/google";
 import "./globals.css";
+import { ThemeProvider } from "@/components/theme-provider";
 
 const leagueSpartan = League_Spartan({
   subsets: ["latin"],
@@ -9,8 +10,8 @@ const leagueSpartan = League_Spartan({
 });
 
 export const metadata: Metadata = {
-  title: "My App",
-  description: "A Next.js application",
+  title: "Invoice App",
+  description: "Manage your invoices with ease",
 };
 
 export default function RootLayout({
@@ -19,8 +20,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={leagueSpartan.variable}>{children}</body>
+    <html lang="en" suppressHydrationWarning>
+      <body className={leagueSpartan.variable}>
+        <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
+          {children}
+        </ThemeProvider>
+      </body>
     </html>
   );
 }

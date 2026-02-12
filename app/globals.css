@@ -82,6 +82,12 @@
   --color-invoice-red-light: hsl(0 100% 80%);
   --color-invoice-bg-light: hsl(240 27% 98%);
   --color-invoice-bg-dark: hsl(233 30% 11%);
+
+  /* Status badge colors */
+  --color-invoice-green: hsl(158 64% 52%);
+  --color-invoice-orange: hsl(33 100% 50%);
+  --color-invoice-draft-light: hsl(233 26% 26%);
+  --color-invoice-draft-dark: hsl(231 73% 93%);
 }
 
 :root {

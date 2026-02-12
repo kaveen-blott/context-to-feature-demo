@@ -1,5 +1,11 @@
 # Invoice App - Project Rules
 
+## Codebase Context
+
+@context .claude/context.md
+
+Read `.claude/context.md` for an auto-generated index of all files, routes, types, components, and utilities. This file is regenerated automatically via a PostToolUse hook whenever code is written or edited.
+
 ## Tech Stack
 
 - **Framework**: Next.js 16 (App Router, RSC by default)
@@ -46,6 +52,10 @@ For cases where you need a specific Figma color outside the semantic system, use
 - `bg-invoice-red-light` / `text-invoice-red-light` -- #FF9797
 - `bg-invoice-bg-light` -- #F8F8FB
 - `bg-invoice-bg-dark` -- #141625
+- `bg-invoice-green` / `text-invoice-green` -- #33D69F (Paid status)
+- `bg-invoice-orange` / `text-invoice-orange` -- #FF8F00 (Pending status)
+- `bg-invoice-draft-light` / `text-invoice-draft-light` -- #373B53 (Draft status, light mode)
+- `bg-invoice-draft-dark` / `text-invoice-draft-dark` -- #DFE3FA (Draft status, dark mode)
 
 ### Typography
 
