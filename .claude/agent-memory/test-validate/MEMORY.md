@@ -36,6 +36,18 @@
 - Theme toggle: `page.getByRole('button', { name: /theme/i })`
 - New Invoice button: `page.getByRole('button', { name: /New Invoice/i })`
 
+#### Invoice Detail Page (CI-3259)
+- Go back link: `page.getByRole('link', { name: 'Go back' })` - Links to `/`
+- Invoice ID heading: `page.getByRole('heading', { name: /#[A-Z0-9]+/ })` - e.g. "#XM9141"
+- Status badge: `page.getByText('Paid|Pending|Draft')` in status bar card
+- Action buttons: `page.getByRole('button', { name: 'Edit|Delete|Mark as Paid|Mark as Pending' })`
+- Items table: 4-column grid layout (Item Name, QTY., Price, Total)
+- Amount Due: Located in dark footer of items table card
+- Conditional button logic:
+  - Paid invoices: NO "Mark as Paid" button (only Edit + Delete)
+  - Draft invoices: Button says "Mark as Pending" instead
+  - Pending invoices: Shows all 3 buttons (Edit, Delete, Mark as Paid)
+
 #### Common Patterns
 - Prefer `getByRole()` over CSS selectors for accessibility
 - Use `getByText()` for static text elements
@@ -44,7 +56,8 @@
 
 ### Known Routes
 - Root: `/` - Invoice list page
-- Invoice detail: `/invoices/[id]` - View invoice placeholder page
+- Invoice detail: `/invoices/[id]` - View invoice page (fully implemented with items table grid)
+- Invalid invoice: Shows "Invoice not found" error page with back link
 
 ### Next.js-Specific Patterns
 - Next.js adds a route announcer div with duplicate text content for accessibility
@@ -54,8 +67,12 @@
 ### Mock Data
 - 7 total invoices in `/lib/data/mock-invoices.ts`
 - IDs: RT3080, XM9141, RG0314, RT2080, AA1449, TY9141, FV2353
-- Status breakdown: 2 Paid, 4 Pending, 1 Draft
+- Status breakdown: 2 Paid (RT3080, RG0314), 4 Pending (XM9141, RT2080, AA1449, TY9141), 1 Draft (FV2353)
 - All use GBP currency formatting
+- Good test invoices:
+  - XM9141 (Pending): Has 2 line items for testing items table grid
+  - RG0314 (Paid): Single item, good for testing "Mark as Paid" button hiding
+  - FV2353 (Draft): Single item, good for testing "Mark as Pending" button
 
 ### Filter Behavior
 - Multi-select with OR logic (shows invoices matching ANY selected status)
